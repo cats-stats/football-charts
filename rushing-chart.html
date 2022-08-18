@@ -35,17 +35,24 @@
 
         <div class="container-fluid">
           <div class="row">
-            <div class="col-7">
+            <div class="col-sm-7">
               <div class="form-group">
-                <label for="playTypeButtons">Play</label>
+                <label for="playTypeButtons">Gap Type</label>
                 <div id="playTypeButtons"></div>
               </div>
             </div>
-            <div class="col-5">
+            <div class="col-sm-5">
               <div class="form-group">
                 <label for="yardageTypeButtons">Yardage</label>
                 <div id="yardageTypeButtons"></div>
-
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-5">
+              <div class="form-group">
+                <label for="pullTypeButtons">Linemen Pull</label>
+                <div id="pullTypeButtons"></div>
               </div>
             </div>
           </div>
@@ -64,7 +71,8 @@
             <div class="col-md-5 mb-3">
               <h2 class="leftHalf ownHalf">Own</h2>
             </div>
-            <div style="padding: 0;" class="col-md-2 mb-3"><button id="switchButton" class="btn btn-primary">Switch</button></div>
+            <div style="padding: 0;" class="col-md-2 mb-3"><button id="switchButton"
+                class="btn btn-primary">Switch</button></div>
             <div class="col-md-5 mb-3">
               <h2 class="rightHalf opponentHalf">Opponent</h2>
             </div>
@@ -96,12 +104,16 @@
     let player = null;
 
     // Add play types here
-    const playTypes = ["Complete Pass", "Incomplete Pass"];
+    const playTypes = ["A Gap", "B Gap", "C Gap", "Outside"];
     let playType = playTypes[0];
 
     // Add yardage types here
     const yardageTypes = ["< 0", "0-5", "6-10", "11-15", "16-20", "> 20"];
     let yardageType = yardageTypes[0];
+
+    // Add linemen pull here (essentially duplicating yardage types)
+    const linemenPull = ["Pull", "No Pull"]
+    let pullType = linemenPull[0];
 
     // Set up color and shape
     const eventColor = d3.scaleOrdinal()
@@ -231,6 +243,26 @@
         .append("path")
         .attr("d", d => getShape(d)());
 
+      const pullEnter = d3.select("#pullTypeButtons").selectAll(".form-check")
+        .data(linemenPull)
+        .enter().append("div")
+        .attr("class", "form-check")
+        .on("click", d => pullType = d);
+
+      pullEnter.append("input")
+        .attr("type", "radio")
+        .attr("class", "form-check-input")
+        .attr("name", "pullTypeRadio")
+        .attr("id", d => d + "_radio")
+        .attr("value", d => d)
+        .property("defaultChecked", d => d === pullType);
+
+
+      pullEnter.append("label")
+        .text(d => d)
+        .attr("class", "form-check-label")
+        .attr("for", d => d + "_radio");
+
       // Download button
       d3.select("#downloadButton").on("click", () => {
         let data = [];
@@ -329,7 +361,8 @@
           playerName: player.name,
           playerNumber: player.number,
           playType: playType,
-          yardageType: yardageType
+          yardageType: yardageType,
+          pullType: pullType
         };
 
         console.log(data)
