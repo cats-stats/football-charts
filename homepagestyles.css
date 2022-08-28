@@ -71,9 +71,9 @@ a {
      Clarence to see if he might have anything we can use, quick search of the
      site did not yield much
      */
-    background-image: url(https://dbukjj6eu5tsf.cloudfront.net/sidearm.sites/davidsonwildcats.com/images/2019/12/12/Sparks_Dylan.png);
+    background-image: url("./images/clarence.jpg");
     background-size: cover;
-    background-position: 30%;
+    background-position: 30% 90%;
 }
 
 .column-content {
@@ -95,11 +95,11 @@ a {
 }
 
 #right-header-column {
-    background-color: #49494988;
+    background-color: #494949bb;
 }
 
 #right-header-column:hover {
-    background-color: #494949bb;
+    background-color: #494949dd;
 }
 
 
