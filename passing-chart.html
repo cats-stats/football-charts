@@ -64,7 +64,8 @@
             <div class="col-md-5 mb-3">
               <h2 class="leftHalf ownHalf">Own</h2>
             </div>
-            <div style="padding: 0;" class="col-md-2 mb-3"><button id="switchButton" class="btn btn-primary">Switch</button></div>
+            <div style="padding: 0;" class="col-md-2 mb-3"><button id="switchButton"
+                class="btn btn-primary">Switch</button></div>
             <div class="col-md-5 mb-3">
               <h2 class="rightHalf opponentHalf">Opponent</h2>
             </div>
@@ -316,9 +317,11 @@
 
         // Store x in own coordinate system
         let x = d3.mouse(this)[0];
-        if (!ownLeft) x = width - x;
-
-        const y = d3.mouse(this)[1];
+        let y = d3.mouse(this)[1]
+        if (!ownLeft) {
+          x = width - x
+          y = height - y
+        };
 
         // Set the data for this event
         const data = {
@@ -365,9 +368,11 @@
 
     function eventTransform(d, width, height) {
       let x = d.xNorm * width;
-      if (!ownLeft) x = width - x;
-
-      const y = d.yNorm * height;
+      let y = d.yNorm * height;
+      if (!ownLeft) {
+        x = width - x
+        y = height - y
+      };
 
       const scale = d.playerName === player.name ? 1 : 0.5;
 
