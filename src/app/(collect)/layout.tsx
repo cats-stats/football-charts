@@ -1,39 +1,15 @@
 "use client";
-import { createContext, ReactElement, useState } from "react";
+import { ReactElement, useState } from "react";
 import { ClickableFieldMap } from "@/lib/components/ClickableFieldMap/ClickableFieldMap";
 import type { PointVariant } from "@/lib/components/ClickableFieldMap/Point";
 import type { Position } from "@/lib/types";
 import { Button } from "@/lib/components/ui/button";
+import { ClickMapCollectionContext } from "./context";
 import clsx from "clsx";
 
 type Metadata = Record<PropertyKey, unknown>;
 type MetadataWithPosition = Metadata & Position;
 type PlayTypeToShape = Record<string, PointVariant>;
-
-interface DataCollectionContextProvider {
-  points: MetadataWithPosition[];
-  metadata: Metadata;
-  updateMetadata: (key: PropertyKey, value: unknown) => void;
-  plottingEnabled: boolean;
-  enablePlotting: (state: boolean) => void;
-  setPlayTypeToShape: (shape: PlayTypeToShape) => void;
-}
-
-export const ClickMapCollectionContext =
-  createContext<DataCollectionContextProvider>({
-    points: [],
-    metadata: { shape: "circle" },
-    updateMetadata() {
-      throw new Error("Not implemented.");
-    },
-    plottingEnabled: false,
-    enablePlotting() {
-      throw new Error("Not implemented.");
-    },
-    setPlayTypeToShape() {
-      throw new Error("Not implemented.");
-    },
-  });
 
 export default function CollectLayout({
   children,
