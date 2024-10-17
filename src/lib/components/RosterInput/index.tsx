@@ -3,11 +3,16 @@ import { Input } from "@/lib/components/ui/input";
 import { readRosterFile } from "@/lib/utils";
 import type { Player } from "@/lib/types";
 
-export function RosterInput({
-  onPlayersChange,
-}: {
+interface RosterInputProps {
   onPlayersChange: (players: Player[]) => void;
-}) {
+}
+
+/**
+ * RosterInput is a component that allows the user to upload a CSV file containing a list of players.
+ *
+ * It is used to collect a list of players for a team.
+ */
+export function RosterInput({ onPlayersChange }: RosterInputProps) {
   return (
     <div>
       <Label className="text-sm" htmlFor="file">

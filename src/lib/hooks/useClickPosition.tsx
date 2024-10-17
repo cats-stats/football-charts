@@ -1,6 +1,13 @@
 import { useRef, useEffect } from "react";
 import { Position } from "@/lib/types";
 
+/**
+ * useClickPosition is a hook that provides a reference to an SVG element and a callback to handle click events.
+ *
+ * The callback is passed the position of the click event in the SVG element.
+ * The position is normalized to a value between 0 and 1 for both x and y to account for different screen sizes.
+ * The callback is called with the relative position of the click event.
+ */
 export const useClickPosition = (callback: (pos: Position) => void) => {
   const ref = useRef<SVGSVGElement>(null);
 

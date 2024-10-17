@@ -9,6 +9,12 @@ interface ExportDataButtonProps
   filename: string;
 }
 
+/**
+ * ExportDataButton is a component that allows the user to export data to a CSV file.
+ *
+ * Clicking the button will trigger the export of the data to a CSV file. Data and header columns can be customized.
+ * Header columns will be written in the order they are provided.
+ */
 export function ExportDataButton({
   data,
   header,

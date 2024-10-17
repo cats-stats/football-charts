@@ -12,6 +12,18 @@ interface ClickableFieldMapProps<Metadata> {
   invert?: boolean;
 }
 
+/**
+ * ClickableFieldMap is a component that renders a clickable field map.
+ *
+ * This component exposes a callback that is called when a point is clicked.
+ * The callback is passed the position of the point that was clicked. This
+ * can be used to display additional information or to update the state of the application.
+ *
+ * The points provided to the component are rendered on the field map in the order provided.
+ * The component uses a mapping to determine the variant of the point to render based on the value of the shapeKey.
+ *
+ * The component also allows for the field map to be inverted in order to account for teams flipping every quarter.
+ */
 export function ClickableFieldMap<Metadata>({
   points,
   handleClick,

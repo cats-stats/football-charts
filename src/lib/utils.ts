@@ -53,6 +53,12 @@ export function readRosterFile(
   reader.readAsText(file);
 }
 
+/**
+ * Exports data to a CSV file.
+ * @param data The data to export.
+ * @param keys The keys to export.
+ * @param filename The filename to export to.
+ */
 export function exportData<Keys extends string>(
   data: Record<Keys, unknown>[],
   keys: readonly Keys[],
