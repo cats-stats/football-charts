@@ -1,14 +1,36 @@
-# Football Charting
-## Introduction
-This repository is where we ('Cats Stats) develop and host our football charting software.
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-The live site can be found [here](https://drew-beamer.github.io/football-charts/)
+## Getting Started
 
-## About 'Cats Stats
-['Cats Stats](https://catsstats.timchartier.com/about-us/) was created at Davidson College in 2013 by four members of the Class of 2014 and mathematics professor Dr. Tim Chartier. They began offering advanced analytics to the Davidson College Men’s Basketball team on a trial-basis, attempting to help the coaching staff and revealing insights through mathematical analysis. By the end of the first season and through much trial and error, the coaching staff realized that the work being done was not only helpful, but indispensable and asked the group to continue the following season. Since the members of the group were graduating, a new group of analysts were brought in and Cats Stats began to grow.
+First, run the development server:
 
-## Contributing
-If you are a student at Davidson, reach out to the current Data Engineering Manager of 'Cats Stats, otherwise please fork the repository.
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-## Acknowledgements
-We would like to thank [David Borland](https://github.com/davidborland) for developing the ClickMap repository we forked to create this software.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
