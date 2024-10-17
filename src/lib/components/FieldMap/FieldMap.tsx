@@ -1,4 +1,5 @@
 "use client";
+import { getAssetUrl } from "@/lib/utils";
 import { forwardRef, ReactElement, LegacyRef } from "react";
 
 export const FieldMap = forwardRef(function FieldMap(
@@ -17,11 +18,7 @@ export const FieldMap = forwardRef(function FieldMap(
           y="0"
           width="100%"
           height="100%"
-          href={
-            process.env.NODE_ENV === "development"
-              ? "/football.png"
-              : "/football-charts/football.png"
-          }
+          href={getAssetUrl("/football.png")}
         />
         {children}
       </svg>
