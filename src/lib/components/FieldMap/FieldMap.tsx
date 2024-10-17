@@ -1,6 +1,13 @@
 "use client";
+import { getAssetUrl } from "@/lib/utils";
 import { forwardRef, ReactElement, LegacyRef } from "react";
 
+/**
+ * FieldMap is a component that renders a field map.
+ *
+ * It is a wrapper around an SVG element that renders an image of a football field.
+ * Children are rendered on top of the field.
+ */
 export const FieldMap = forwardRef(function FieldMap(
   { children }: { children?: ReactElement[] },
   ref?: LegacyRef<SVGSVGElement>
@@ -17,11 +24,7 @@ export const FieldMap = forwardRef(function FieldMap(
           y="0"
           width="100%"
           height="100%"
-          href={
-            process.env.NODE_ENV === "development"
-              ? "/football.png"
-              : "/football-charts/football.png"
-          }
+          href={getAssetUrl("/football.png")}
         />
         {children}
       </svg>
