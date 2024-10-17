@@ -12,7 +12,17 @@ export const FieldMap = forwardRef(function FieldMap(
         className="w-full aspect-[1280/618] z-10"
         viewBox="0 0 1280 618"
       >
-        <image x="0" y="0" width="100%" height="100%" href="/football.png" />
+        <image
+          x="0"
+          y="0"
+          width="100%"
+          height="100%"
+          href={
+            process.env.NODE_ENV === "development"
+              ? "/football.png"
+              : "/football-charts/football.png"
+          }
+        />
         {children}
       </svg>
     </div>
