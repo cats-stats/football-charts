@@ -40,9 +40,9 @@ export function ClickableFieldMap<Metadata>({
           <Point
             key={index}
             variant={shapeMapping[point[shapeKey]]}
-            x={1280 * (invert ? 1 - point.x : point.x)}
-            y={618 * point.y} // don't invert y, observer is from same size, but teams flip every quarter
-            r={12}
+            x={372 * (invert ? 1 - point.x : point.x)}
+            y={172 * point.y} // don't invert y, observer is from same size, but teams flip every quarter
+            r={3}
           />
         );
       })}
