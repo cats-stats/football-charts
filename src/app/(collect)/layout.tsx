@@ -49,7 +49,7 @@ export default function CollectLayout({
   return (
     <main className="grid grid-cols-12 gap-3 px-8">
       <div className="col-span-12 flex flex-col md:flex-row gap-3">
-        <div className="w-full md:w-10/12 p-3 border rounded-lg shadow-sm">
+        <div className="w-full md:w-10/12 p-6 border rounded-lg shadow-sm">
           <ClickableFieldMap
             points={points}
             handleClick={handleClick}

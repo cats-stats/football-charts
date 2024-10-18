@@ -13,18 +13,18 @@ export const FieldMap = forwardRef(function FieldMap(
   ref?: LegacyRef<SVGSVGElement>
 ) {
   return (
-    <div className="relative select-none w-full aspect-[1280/618]">
+    <div className="relative select-none w-full aspect-[372/172] border">
       <svg
         ref={ref}
-        className="w-full aspect-[1280/618] z-10"
-        viewBox="0 0 1280 618"
+        className="w-full aspect-[372/172] z-10"
+        viewBox="0 0 372 172"
       >
         <image
           x="0"
           y="0"
           width="100%"
           height="100%"
-          href={getAssetUrl("/football.png")}
+          href={getAssetUrl("/scale-field.svg")}
         />
         {children}
       </svg>
