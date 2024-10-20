@@ -1,114 +1,95 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useClickMapContext } from "../context";
-import { CheckIcon, XIcon } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/lib/components/ui/select";
-import { Label } from "@/lib/components/ui/label";
+import { useState } from "react";
 import { RosterInput } from "@/lib/components/RosterInput";
-import { ExportDataButton } from "@/lib/components/ExportDataButton";
 import type { Player } from "@/lib/types";
+import {
+  PassingMetadataSubmission,
+  passingMetadataSubmissionSchema,
+} from "./schema";
+import { FieldErrors, useForm } from "react-hook-form";
+import { Form } from "@/lib/components/ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import FieldMapContainer from "./Form/FieldMap";
+import MetadataForm from "./Form/Metadata";
+import { Button } from "@/lib/components/ui/button";
+import { useToast } from "@/lib/hooks/use-toast";
 
-const playTypes = [
-  {
-    value: "Complete Pass",
-    icon: CheckIcon,
-  },
-  {
-    value: "Incomplete Pass",
-    icon: XIcon,
-  },
-];
+const prettyKeys = {
+  quarterback: "Quarterback",
+  target: "Target",
+  passResult: "Pass Result",
+  lineOfScrimmage: "Line of Scrimmage",
+  qbLocation: "Quarterback Location",
+  targetLocation: "Target Location",
+};
 
-export default function PassingCharting() {
+export default function PassingChart() {
   const [players, setPlayers] = useState<Player[]>([]);
+  const [data, setData] = useState<PassingMetadataSubmission[]>([]);
 
-  const {
-    metadata,
-    points,
-    updateMetadata,
-    enablePlotting,
-    setPlayTypeToShape,
-  } = useClickMapContext();
+  const form = useForm<PassingMetadataSubmission>({
+    resolver: zodResolver(passingMetadataSubmissionSchema),
+    defaultValues: {
+      passResult: "complete",
+    },
+  });
 
-  const { playType, receiver } = metadata;
+  const { toast } = useToast();
 
-  useEffect(() => {
-    setPlayTypeToShape({
-      "Complete Pass": "circle",
-      "Incomplete Pass": "x",
+  const { handleSubmit } = form;
+
+  const onSubmit = (data: PassingMetadataSubmission) => {
+    setData((prev) => [...prev, data]);
+    toast({
+      title: "Play submitted successfully!",
     });
-  }, [setPlayTypeToShape]);
+    form.reset({
+      passResult: "complete",
+      quarterback: data.quarterback,
+      target: undefined,
+    });
+  };
 
-  useEffect(() => {
-    if (playType && receiver) {
-      enablePlotting(true);
-    }
-  }, [playType, receiver, enablePlotting]);
+  const onInvalid = (errors: FieldErrors<PassingMetadataSubmission>) => {
+    toast({
+      title: "Play submission failed! Errors:",
+      variant: "destructive",
+      description: Object.entries(errors)
+        .map(
+          ([key, value]) =>
+            `${
+              prettyKeys[key as keyof typeof prettyKeys]
+            }: ${value.message?.toLowerCase()}`
+        )
+        .join(", "),
+    });
+  };
 
   return (
-    <div className="w-full md:w-3/12 flex flex-col gap-3">
-      <RosterInput onPlayersChange={setPlayers} />
-      <div>
-        <Label className="text-sm" htmlFor="receiver">
-          Receiver
-        </Label>
-        <Select
-          disabled={players.length === 0}
-          onValueChange={(v) => updateMetadata("receiver", v)}
-        >
-          <SelectTrigger className="mt-1" id="receiver">
-            <SelectValue placeholder="Select a Receiver" />
-          </SelectTrigger>
-          <SelectContent>
-            {players.map((player) => (
-              <SelectItem
-                key={`${player.name}-${player.number}`}
-                value={player.name}
-              >
-                {player.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+    <div className="flex flex-col gap-4">
+      <div className="flex w-full justify-between">
+        <h1 className="text-2xl font-bold">Passing Chart</h1>
+        <RosterInput onPlayersChange={setPlayers} />
       </div>
-      <div>
-        <Label className="text-sm" htmlFor="playType">
-          Play Type
-        </Label>
-        <Select
-          disabled={players.length === 0}
-          onValueChange={(v) => updateMetadata("playType", v)}
+      <Form {...form}>
+        <form
+          className="w-full flex flex-col-reverse md:flex-row gap-4"
+          onSubmit={handleSubmit(onSubmit, onInvalid)}
         >
-          <SelectTrigger className="mt-1" id="playType">
-            <SelectValue placeholder="Play Type" />
-          </SelectTrigger>
-          <SelectContent>
-            {playTypes.map((type) => (
-              <SelectItem key={type.value} value={type.value}>
-                <div className="flex items-center">
-                  <type.icon className="size-4 mr-2" />
-                  <span>{type.value}</span>
-                </div>
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-      <ExportDataButton
-        className="mt-6"
-        data={points}
-        header={["playType", "receiver", "x", "y"] as const}
-        filename="passing-data.csv"
-      >
-        Export Data
-      </ExportDataButton>
+          <div className="w-full md:w-1/4 shrink-0 flex flex-col gap-4">
+            <MetadataForm players={players} />
+            <Button variant="default" className="w-fit" type="submit">
+              Submit
+            </Button>
+          </div>
+          <div className="w-full md:w-3/4">
+            <div className="p-4 border rounded-lg flex flex-col gap-4 items-center">
+              <FieldMapContainer />
+            </div>
+          </div>
+        </form>
+      </Form>
     </div>
   );
 }
