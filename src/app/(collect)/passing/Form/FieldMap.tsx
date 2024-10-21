@@ -8,27 +8,33 @@ import {
   TargetIcon,
 } from "lucide-react";
 import { Position } from "@/lib/types";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { PassingMetadataSubmission } from "../schema";
 import { fieldDimensions } from "@/lib/constants";
+import { Button } from "@/lib/components/ui/button";
+import { cn } from "@/lib/utils";
+import { FieldInversionContext } from "../page";
 
 export default function FieldMapContainer() {
   const [activeSelector, setActiveSelector] =
-    useState<string>("scrimmage-location");
+    useState<string>("lineOfScrimmage");
   return (
     <>
-      <PassingFieldMap activeSelector={activeSelector} />
       <ActiveTabSelector
         activeSelector={activeSelector}
         setActiveSelector={setActiveSelector}
       />
+      <PassingFieldMap activeSelector={activeSelector} />
     </>
   );
 }
 
 function PassingFieldMap({ activeSelector }: { activeSelector: string }) {
   const ctx = useFormContext<PassingMetadataSubmission>();
+  const { isFieldInverted, setIsFieldInverted } = useContext(
+    FieldInversionContext
+  );
 
   const qbLocation = ctx.watch("qbLocation");
   const targetLocation = ctx.watch("targetLocation");
@@ -51,70 +57,88 @@ function PassingFieldMap({ activeSelector }: { activeSelector: string }) {
   }
 
   return (
-    <ClickableFieldMap handleClick={handleFieldClick}>
-      {lineOfScrimmage && (
-        <line
-          x1={lineOfScrimmage.x}
-          y1={6}
-          x2={lineOfScrimmage.x}
-          y2={166}
-          className="stroke-blue-800 stroke-1"
-        />
-      )}
-      {qbLocation && targetLocation && (
-        <line
-          x1={qbLocation.x}
-          y1={qbLocation.y}
-          x2={targetLocation.x}
-          y2={targetLocation.y}
-          strokeDasharray="5,5"
-          className="stroke-accent-foreground stroke-1"
-        />
-      )}
-      {qbLocation && (
-        <>
-          <circle
-            cx={qbLocation.x}
-            cy={qbLocation.y}
-            r={5}
-            className="fill-blue-500"
+    <>
+      <ClickableFieldMap handleClick={handleFieldClick}>
+        {lineOfScrimmage && (
+          <line
+            x1={lineOfScrimmage.x}
+            y1={6}
+            x2={lineOfScrimmage.x}
+            y2={166}
+            className="stroke-blue-800 stroke-1"
           />
-          <UserRoundIcon
-            size={8}
-            className="text-white"
-            x={qbLocation.x - 4}
-            y={qbLocation.y - 4}
+        )}
+        {qbLocation && targetLocation && (
+          <line
+            x1={qbLocation.x}
+            y1={qbLocation.y}
+            x2={targetLocation.x}
+            y2={targetLocation.y}
+            strokeDasharray="5,5"
+            className="stroke-accent-foreground stroke-1"
           />
-        </>
-      )}
-      {targetLocation && (
-        <>
-          <circle
-            cx={targetLocation.x}
-            cy={targetLocation.y}
-            r={5}
-            className="fill-white stroke-accent-foreground stroke-[0.75]"
-          />
-          {passResult === "complete" ? (
-            <CheckIcon
-              size={9}
-              strokeWidth={2.5}
-              className="text-green-600"
-              x={targetLocation.x - 4.5}
-              y={targetLocation.y - 4}
+        )}
+        {qbLocation && (
+          <>
+            <circle
+              cx={qbLocation.x}
+              cy={qbLocation.y}
+              r={5}
+              className="fill-blue-500"
             />
-          ) : (
-            <XIcon
+            <UserRoundIcon
               size={8}
-              strokeWidth={2.5}
-              className="text-primary"
-              x={targetLocation.x - 4}
-              y={targetLocation.y - 4}
+              className="text-white"
+              x={qbLocation.x - 4}
+              y={qbLocation.y - 4}
             />
-          )}
-        </>
-      )}
-    </ClickableFieldMap>
+          </>
+        )}
+        {targetLocation && (
+          <>
+            <circle
+              cx={targetLocation.x}
+              cy={targetLocation.y}
+              r={5}
+              className="fill-white stroke-accent-foreground stroke-[0.75]"
+            />
+            {passResult === "complete" ? (
+              <CheckIcon
+                size={9}
+                strokeWidth={2.5}
+                className="text-green-600"
+                x={targetLocation.x - 4.5}
+                y={targetLocation.y - 4}
+              />
+            ) : (
+              <XIcon
+                size={8}
+                strokeWidth={2.5}
+                className="text-primary"
+                x={targetLocation.x - 4}
+                y={targetLocation.y - 4}
+              />
+            )}
+          </>
+        )}
+      </ClickableFieldMap>
+      <div
+        className={cn(
+          "w-full flex justify-between items-center text-sm text-muted-foreground text-center",
+          isFieldInverted && "flex-row-reverse"
+        )}
+      >
+        <div className="px-4 w-24">Defending</div>
+        <Button
+          variant="secondary"
+          type="button"
+          onClick={() => setIsFieldInverted(!isFieldInverted)}
+        >
+          Flip Field
+        </Button>
+        <div className="px-4 w-24">Attacking</div>
+      </div>
+    </>
   );
 }
 
