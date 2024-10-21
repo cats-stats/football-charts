@@ -2,6 +2,13 @@ import { Label } from "@/lib/components/ui/label";
 import { Input } from "@/lib/components/ui/input";
 import { readRosterFile } from "@/lib/utils";
 import type { Player } from "@/lib/types";
+import { CircleHelpIcon } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/lib/components/ui/tooltip";
 
 interface RosterInputProps {
   onPlayersChange: (players: Player[]) => void;
@@ -14,9 +21,22 @@ interface RosterInputProps {
  */
 export function RosterInput({ onPlayersChange }: RosterInputProps) {
   return (
-    <div>
-      <Label className="text-sm" htmlFor="file">
+    <div className="flex flex-col gap-1">
+      <Label className="text-sm flex items-center gap-1" htmlFor="file">
         Roster File
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <CircleHelpIcon className="size-3.5 text-muted-foreground" />
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              <p className="w-48 text-xs">
+                Upload a CSV file with player names and numbers. Format each row
+                as: Name,Number.
+              </p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </Label>
       <Input
         type="file"
@@ -28,11 +48,6 @@ export function RosterInput({ onPlayersChange }: RosterInputProps) {
           }
         }}
       />
-      <p className="text-xs leading-snug mt-3 text-muted-foreground">
-        File should be a CSV with a list of players, each with a name and
-        number. The first line can be a header, but is not required. Each csv
-        row should be formatted as <b>Name,Number</b> without spaces.
-      </p>
     </div>
   );
 }

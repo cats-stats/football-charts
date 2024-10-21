@@ -1,7 +1,7 @@
 "use client";
 import { getAssetUrl } from "@/lib/utils";
-import { forwardRef, ReactElement, LegacyRef } from "react";
-
+import React, { forwardRef, LegacyRef } from "react";
+import { fieldDimensions } from "@/lib/constants";
 /**
  * FieldMap is a component that renders a field map.
  *
@@ -9,15 +9,20 @@ import { forwardRef, ReactElement, LegacyRef } from "react";
  * Children are rendered on top of the field.
  */
 export const FieldMap = forwardRef(function FieldMap(
-  { children }: { children?: ReactElement[] },
+  { children }: { children?: React.ReactNode },
   ref?: LegacyRef<SVGSVGElement>
 ) {
   return (
-    <div className="relative select-none w-full aspect-[372/172] border">
+    <div
+      style={{
+        aspectRatio: `${fieldDimensions.width}/${fieldDimensions.height}`,
+      }}
+      className="relative select-none w-full border"
+    >
       <svg
         ref={ref}
-        className="w-full aspect-[372/172] z-10"
-        viewBox="0 0 372 172"
+        className="w-full z-10"
+        viewBox={`0 0 ${fieldDimensions.width} ${fieldDimensions.height}`}
       >
         <image
           x="0"

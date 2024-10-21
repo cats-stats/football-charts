@@ -1,8 +1,7 @@
+import { z } from "zod";
+import { playerSchema } from "./schemas";
 
-export interface Player {
-  name: string;
-  number: number;
-}
+export type Player = z.infer<typeof playerSchema>;
 
 export interface Position {
   x: number;
