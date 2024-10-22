@@ -8,13 +8,13 @@ import {
   TargetIcon,
 } from "lucide-react";
 import { Position } from "@/lib/types";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { PassingMetadataSubmission } from "../schema";
 import { fieldDimensions } from "@/lib/constants";
 import { Button } from "@/lib/components/ui/button";
 import { cn } from "@/lib/utils";
-import { FieldInversionContext } from "../page";
+import { useFieldInversion } from "../field-inversion";
 
 export default function FieldMapContainer() {
   const [activeSelector, setActiveSelector] =
@@ -32,9 +32,7 @@ export default function FieldMapContainer() {
 
 function PassingFieldMap({ activeSelector }: { activeSelector: string }) {
   const ctx = useFormContext<PassingMetadataSubmission>();
-  const { isFieldInverted, setIsFieldInverted } = useContext(
-    FieldInversionContext
-  );
+  const { isFieldInverted, setIsFieldInverted } = useFieldInversion();
 
   const qbLocation = ctx.watch("qbLocation");
   const targetLocation = ctx.watch("targetLocation");

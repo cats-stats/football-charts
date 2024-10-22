@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useState } from "react";
+import { useState } from "react";
 import { RosterInput } from "@/lib/components/RosterInput";
 import type { Player, Position } from "@/lib/types";
 import {
@@ -24,6 +24,7 @@ import {
 } from "@/lib/components/ui/table";
 import { fieldDimensions } from "@/lib/constants";
 import { ExportDataButton } from "@/lib/components/ExportDataButton";
+import { FieldInversionContext } from "./field-inversion";
 
 const prettyKeys = {
   quarterback: "Quarterback",
@@ -52,18 +53,6 @@ function invertPosition(position: Position, flipY: boolean = true) {
     y: flipY ? fieldDimensions.height - position.y : position.y,
   };
 }
-
-interface FieldInversionContextProps {
-  isFieldInverted: boolean;
-  setIsFieldInverted: (v: boolean) => void;
-}
-
-export const FieldInversionContext = createContext<FieldInversionContextProps>({
-  isFieldInverted: false,
-  setIsFieldInverted: () => {
-    throw new Error("not implemented");
-  },
-});
 
 export default function PassingChart() {
   const [players, setPlayers] = useState<Player[]>([]);
