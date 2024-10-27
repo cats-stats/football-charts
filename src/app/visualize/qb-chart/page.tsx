@@ -117,13 +117,12 @@ export default function LOSRelativeVisualization() {
 
                       const relativeTargetY =
                         Math.round(
-                          ((172 / 2 -
-                            parseFloat(values[getIndex("targetLocationY")])) /
+                          ((parseFloat(values[getIndex("targetLocationY")]) -
+                            172 / 2) /
                             3) *
                             10
                         ) / 10;
 
-                      // we need to transpose due to the way the field is oriented when visualized
                       return {
                         x: relativeTargetY,
                         y: relativeTargetX,
