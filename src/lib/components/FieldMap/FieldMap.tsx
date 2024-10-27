@@ -1,6 +1,6 @@
 "use client";
 import { getAssetUrl } from "@/lib/utils";
-import React, { forwardRef, Ref } from "react";
+import React, { forwardRef, LegacyRef } from "react";
 import { fieldDimensions } from "@/lib/constants";
 /**
  * FieldMap is a component that renders a field map.
@@ -10,7 +10,7 @@ import { fieldDimensions } from "@/lib/constants";
  */
 export const FieldMap = forwardRef(function FieldMap(
   { children }: { children?: React.ReactNode },
-  ref?: Ref<SVGSVGElement>
+  ref?: LegacyRef<SVGSVGElement>
 ) {
   return (
     <div
