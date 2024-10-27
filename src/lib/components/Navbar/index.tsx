@@ -7,7 +7,8 @@ export const Navbar = () => {
         <Link href="/">{"Football Utility"}</Link>
       </div>
       <nav className="flex gap-x-3 text-sm font-light text-muted-foreground">
-        <Link href="/passing">Passing</Link>
+        <Link href="/passing">Passing Collection</Link>
+        <Link href="/visualize/qb-chart">QB Chart</Link>
       </nav>
     </div>
   );
