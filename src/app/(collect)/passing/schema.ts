@@ -19,9 +19,18 @@ const completePassMetadata = z.object({
   targetLocation: positionSchema,
 });
 
+const interceptionPassMetadata = z.object({
+  quarterback: playerSchema,
+  target: playerSchema,
+  passResult: z.literal("interception"),
+  lineOfScrimmage: positionSchema,
+  qbLocation: positionSchema,
+  targetLocation: positionSchema,
+});
+
 export const passingMetadataSubmissionSchema = z.discriminatedUnion(
   "passResult",
-  [incompletePassMetadata, completePassMetadata]
+  [incompletePassMetadata, completePassMetadata, interceptionPassMetadata]
 );
 
 export type PassingMetadataSubmission = z.infer<

@@ -88,6 +88,7 @@ export default function MetadataForm({ players }: { players: Player[] }) {
                 <SelectContent>
                   <SelectItem value="complete">Complete</SelectItem>
                   <SelectItem value="incomplete">Incomplete</SelectItem>
+                  <SelectItem value="interception">Interception</SelectItem>
                 </SelectContent>
               </Select>
             </FormItem>

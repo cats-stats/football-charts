@@ -6,6 +6,7 @@ import {
   XIcon,
   FlagIcon,
   TargetIcon,
+  ShieldXIcon,
 } from "lucide-react";
 import { Position } from "@/lib/types";
 import { useState } from "react";
@@ -108,7 +109,7 @@ function PassingFieldMap({ activeSelector }: { activeSelector: string }) {
                 x={targetLocation.x - 4.5}
                 y={targetLocation.y - 4}
               />
-            ) : (
+            ) : passResult == "incomplete" ? (
               <XIcon
                 size={8}
                 strokeWidth={2.5}
@@ -116,7 +117,16 @@ function PassingFieldMap({ activeSelector }: { activeSelector: string }) {
                 x={targetLocation.x - 4}
                 y={targetLocation.y - 4}
               />
-            )}
+            ) : (
+              <ShieldXIcon
+                size={8}
+                strokeWidth={2.5}
+                className="text-primary"
+                x={targetLocation.x - 4}
+                y={targetLocation.y - 4}
+              />
+            )
+            }
           </>
         )}
       </ClickableFieldMap>

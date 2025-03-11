@@ -128,6 +128,8 @@ export default function LOSRelativeVisualization() {
                         y: relativeTargetX,
                         completed:
                           values[getIndex("passResult")] === "complete",
+                        intercepted:
+                          values[getIndex("passResult")] == "interception",
                       };
                     })
                     .filter((point) => !isNaN(point.x) && !isNaN(point.y));

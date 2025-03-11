@@ -6,6 +6,7 @@ export interface LOSRelativePoint {
   x: number;
   y: number;
   completed: boolean;
+  intercepted: boolean;
 }
 
 interface LOSRelativeVisualizationProps {
@@ -202,7 +203,7 @@ export default function LOSRelativeQBViz({
               cy={yScale(pass.y)}
               rx={baseRadius * perspective} // Horizontal radius
               ry={baseRadius * perspective * 0.6} // Vertical radius compressed
-              fill={pass.completed ? "green" : "red"}
+              fill={pass.completed ? "green" : pass.intercepted ? "red" : "grey"}
               onMouseEnter={() => setHoveredPass(index)}
               onMouseLeave={() => setHoveredPass(null)}
             />
@@ -245,9 +246,13 @@ export default function LOSRelativeQBViz({
           <span className="w-3 h-3 rounded-full bg-green-500 mr-2"></span>
           Completed Pass
         </span>
+        <span className="inline-flex items-center mr-4">
+          <span className="w-3 h-3 rounded-full bg-gray-500 mr-2"></span>
+          Incomplete Pass
+        </span>
         <span className="inline-flex items-center">
           <span className="w-3 h-3 rounded-full bg-red-500 mr-2"></span>
-          Incomplete Pass
+          Intercepted Pass
         </span>
       </div>
     </div>

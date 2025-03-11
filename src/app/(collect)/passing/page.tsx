@@ -44,6 +44,11 @@ function generatePlayDescription(datapoint: PassingMetadataSubmission) {
       return `${datapoint.quarterback.name} pass incomplete.`;
     case "complete":
       return `${datapoint.quarterback.name} pass complete to ${datapoint.target.name}`;
+    case "interception":
+      if (datapoint.target) {
+        return `${datapoint.quarterback.name} pass intercepted. Intended target: ${datapoint.target.name}`;
+      }
+      return `${datapoint.quarterback.name} pass intercepted.`;
   }
 }
 
